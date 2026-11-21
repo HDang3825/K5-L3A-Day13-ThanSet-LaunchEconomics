@@ -4,17 +4,18 @@
 
 - Tên nhóm: ThanSet
 - Lớp: L3A
+- Nhóm trưởng: Võ Lê Hải Đăng
 - Repo nhóm: `K5-L3A-Day13-ThanSet-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/HDang3825/K5-L3A-Day13-ThanSet-LaunchEconomics (đang làm việc trên các nhánh thành viên, sẽ chốt nhánh `main` trước khi nộp)
+- URL repo, nhánh nộp, commit chốt: https://github.com/HDang3825/K5-L3A-Day13-ThanSet-LaunchEconomics (đang làm việc trên các nhánh thành viên, sẽ chốt nhánh `main` trước khi nộp) · commit chốt: (điền lúc 17:45)
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 | Võ Lê Hải Đăng | 2A202603577 | 26ai.dangvlh@vinuni.edu.vn | HDang3825 | Người viết code (nửa đầu) |
-|   2 | Lưu Đăng Tuấn | 2A202603454 | 26ai.tuanld@vinuni.edu.vn | kegacua | Người kiểm số (nửa đầu) / Người viết code (nửa sau) |
-|   3 |        |      |       |        | Người gắn nhãn 1 |
-|   4 |        |      |       |        | Người gắn nhãn 2, kiêm giữ hồ sơ |
+|   1 | Võ Lê Hải Đăng (nhóm trưởng) | 2A202603577 | 26ai.dangvlh@vinuni.edu.vn | HDang3825 | Kỹ sư Dữ liệu 1 (người viết code nửa đầu buổi) |
+|   2 | Lưu Đăng Tuấn | 2A202603454 | 26ai.tuanld@vinuni.edu.vn | kegacua | Kỹ sư Dữ liệu 2 / Kiểm toán số liệu (người kiểm số; người viết code nửa sau buổi) |
+|   3 | Nguyễn Thành Danh | 2A202603493 |       |        | Chuyên viên Đảm bảo chất lượng (QA, người gắn nhãn 1) |
+|   4 | Nguyễn Thị Hồng San | 2A202603513 | 26ai.sannth@vinuni.edu.vn |        | Quản lý Hồ sơ & Vận hành (người gắn nhãn 2 kiêm giữ hồ sơ) |
 
 Bốn vai của lab:
 
