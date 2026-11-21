@@ -4,17 +4,18 @@
 
 - Tên nhóm: ThanSet
 - Lớp: L3A
+- Nhóm trưởng: Võ Lê Hải Đăng
 - Repo nhóm: `K5-L3A-Day13-ThanSet-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/HDang3825/K5-L3A-Day13-ThanSet-LaunchEconomics (đang làm việc trên các nhánh thành viên, sẽ chốt nhánh `main` trước khi nộp)
+- URL repo, nhánh nộp, commit chốt: https://github.com/HDang3825/K5-L3A-Day13-ThanSet-LaunchEconomics (đang làm việc trên các nhánh thành viên, sẽ chốt nhánh `main` trước khi nộp) · commit chốt: (điền lúc 17:45)
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 | Võ Lê Hải Đăng | 2A202603577 | 26ai.dangvlh@vinuni.edu.vn | HDang3825 | Người viết code (nửa đầu) |
-|   2 | Lưu Đăng Tuấn | 2A202603454 | 26ai.tuanld@vinuni.edu.vn | kegacua | Người kiểm số (nửa đầu) / Người viết code (nửa sau) |
-|   3 | Nguyễn Thành Danh | 2A202603493 |  26ai.danhnt@vinuni.edu.vn    |  thdanhnguyen    | Người gắn nhãn 1 |
-|   4 |        |      |       |        | Người gắn nhãn 2, kiêm giữ hồ sơ |
+|   1 | Võ Lê Hải Đăng (nhóm trưởng) | 2A202603577 | 26ai.dangvlh@vinuni.edu.vn | HDang3825 | Kỹ sư Dữ liệu 1 (người viết code nửa đầu buổi) |
+|   2 | Lưu Đăng Tuấn | 2A202603454 | 26ai.tuanld@vinuni.edu.vn | kegacua | Kỹ sư Dữ liệu 2 / Kiểm toán số liệu (người kiểm số; người viết code nửa sau buổi) |
+|   3 | Nguyễn Thành Danh | 2A202603493 | 26ai.danhnt@vinuni.edu.vn |  thdanhnguyen | Chuyên viên Đảm bảo chất lượng (QA, người gắn nhãn 1) |
+|   4 | Nguyễn Thị Hồng San | 2A202603513 | 26ai.sannth@vinuni.edu.vn | nghongsan | Quản lý Hồ sơ & Vận hành (người gắn nhãn 2 kiêm giữ hồ sơ) |
 
 Bốn vai của lab:
 
@@ -83,10 +84,9 @@ Sao chép mục dưới đây cho từng thành viên.
 
 ### Phần việc phụ trách
 
-- **Xuyên suốt buổi (CP1–CP5):** Đóng vai trò "Người gác cổng", theo dõi điều kiện "Xong khi" của từng checkpoint trong `CHECKPOINTS.md` và tiêu chí chấm trong `RUBRIC.md` (kiểm soát nhãn `simulated`, không dùng từ `"production"`, người phụ trách là vai trò cụ thể).
-- **Nhiệm vụ C (CP3):** Gắn nhãn độc lập 20 ca lỗi theo 5 nhóm của Google PAIR, đối chiếu với Người gắn nhãn 2 để tính tỉ lệ đồng thuận, viết quy tắc phân biệt cho các ca không trùng và hoàn thiện bảng khắc phục 5 ca trong `report/team/bang_loi.md`.
-- **Nhiệm vụ D (CP4):** Chủ trì hoàn thiện cấu trúc `report/team/pilot_plan.yaml`, thiết lập 3 luật dừng định lượng theo mẫu `NẾU – TRONG – THÌ – KHÔNG THÌ`, xác định `identifiability`, `rollback`, `scope`, `simulated_inputs` và kiểm tra cú pháp YAML.
-- **Nhiệm vụ E (CP5):** Phối hợp kiểm tra chéo và hoàn thiện `report/team/chi_so.md` và trang hồ sơ `report/team/ho_so_launch_v0.md` trước phiên duyệt chéo Gate 2a.
+- Đóng vai trò "Người gác cổng", theo dõi điều kiện "Xong khi" của từng checkpoint trong `CHECKPOINTS.md` và tiêu chí chấm trong `RUBRIC.md` (kiểm soát nhãn `simulated`, không dùng từ `"production"`, người phụ trách là vai trò cụ thể).
+- Gắn nhãn độc lập 20 ca lỗi theo 5 nhóm của Google PAIR, đối chiếu với Người gắn nhãn 2 để tính tỉ lệ đồng thuận, viết quy tắc phân biệt cho các ca không trùng và hoàn thiện bảng khắc phục 5 ca trong `report/team/bang_loi.md`.
+- Chủ trì hoàn thiện cấu trúc `report/team/pilot_plan.yaml`, thiết lập 3 luật dừng định lượng theo mẫu `NẾU – TRONG – THÌ – KHÔNG THÌ`, xác định `identifiability`, `rollback`, `scope`, `simulated_inputs` và kiểm tra cú pháp YAML.
 
 ### Đóng góp cụ thể
 
@@ -99,4 +99,24 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - `report/team/bang_loi.md`: Đủ 20 ca đối chiếu (tỉ lệ đồng thuận `17 / 20 = 85%`), 3 quy tắc phân biệt (Ca 13, 16, 17) và 5 dòng khắc phục đủ 5 nhóm PAIR.
 - `report/team/pilot_plan.yaml`: Đọc thành công bằng `yaml.safe_load` (`YAML valid: True`), không còn dấu `?` ngoài dòng chú thích, đủ 3 luật dừng đúng mẫu `NẾU – TRONG – THÌ – KHÔNG THÌ`.
+- Nhánh cá nhân: `nguyenthanhdanh` .
+- Báo cáo cá nhân `report/team/2A202603493_NguyenThanhDanh.md` .
 
+## NguyenThiHongSan-2A202603513
+
+### Phần việc phụ trách
+
+- Người giữ hồ sơ: theo dõi `report/team/ho_so_launch_v0.md` từ đầu buổi, rà soát tính nhất quán (nhãn `simulated`, chức danh người phụ trách, không còn chỗ trống, từ cấm).
+- Người gắn nhãn 2 ở CP3: gắn độc lập 20 ca lỗi theo 5 loại Google PAIR trong `report/team/bang_loi.md`.
+- Điền thông tin nhóm và bảng thành viên trong `TEAM.md`; chuẩn bị chấm duyệt chéo Gate 2a bằng `report/team/phieu_cham.md`.
+
+### Đóng góp cụ thể
+
+- Gắn nhãn độc lập 20 ca lỗi (bộ nhãn người 2); đồng thuận với người gắn nhãn 1 là 17/20 = 85%.
+- Rà soát hồ sơ launch v0 với số trong `bang_chi_phi.md`, `bang_loi.md`, `pilot_plan.yaml`; tính tay kiểm số 3.414 đ (phạm vi `noi_dia` + `hang_nang`, simulated): (2.696 × 783 + 8.221 × 117) ÷ 900 = 3.414 đ, khớp hồ sơ.
+- Điền bảng thành viên, vai và thông tin nhóm trong `TEAM.md`; kéo `main` về nhánh `nghongsan` và gộp xung đột ở `TEAM.md`, `ho_so_launch_v0.md`.
+
+### Bằng chứng
+
+- Nhánh `nghongsan`, commit `94734dc` (`report/team/bang_loi.md`) và `3b5f8b0` (`TEAM.md`, báo cáo cá nhân).
+- Báo cáo cá nhân: `report/team/2A202603513_NguyenThiHongSan.md`.
