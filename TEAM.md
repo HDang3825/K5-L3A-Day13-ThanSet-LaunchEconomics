@@ -79,3 +79,22 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - Nhánh `luutuan`, commit `9736e52` trên `src/lab13.py`, `report/team/bang_chi_phi.md`, `report/team/pilot_plan.yaml`.
 - Báo cáo cá nhân: `report/team/2A202603454_LuuDangTuan.md`.
+
+## NguyenThiHongSan-2A202603513
+
+### Phần việc phụ trách
+
+- Người giữ hồ sơ: theo dõi `report/team/ho_so_launch_v0.md` từ đầu buổi, rà soát tính nhất quán (nhãn `simulated`, chức danh người phụ trách, không còn chỗ trống, từ cấm).
+- Người gắn nhãn 2 ở CP3: gắn độc lập 20 ca lỗi theo 5 loại Google PAIR trong `report/team/bang_loi.md`.
+- Điền thông tin nhóm và bảng thành viên trong `TEAM.md`; chuẩn bị chấm duyệt chéo Gate 2a bằng `report/team/phieu_cham.md`.
+
+### Đóng góp cụ thể
+
+- Gắn nhãn độc lập 20 ca lỗi (bộ nhãn người 2); đồng thuận với người gắn nhãn 1 là 17/20 = 85%.
+- Rà soát hồ sơ launch v0 với số trong `bang_chi_phi.md`, `bang_loi.md`, `pilot_plan.yaml`; tính tay kiểm số 3.414 đ (phạm vi `noi_dia` + `hang_nang`, simulated): (2.696 × 783 + 8.221 × 117) ÷ 900 = 3.414 đ, khớp hồ sơ.
+- Điền bảng thành viên, vai và thông tin nhóm trong `TEAM.md`; kéo `main` về nhánh `nghongsan` và gộp xung đột ở `TEAM.md`, `ho_so_launch_v0.md`.
+
+### Bằng chứng
+
+- Nhánh `nghongsan`, commit `94734dc` (`report/team/bang_loi.md`) và `3b5f8b0` (`TEAM.md`, báo cáo cá nhân).
+- Báo cáo cá nhân: `report/team/2A202603513_NguyenThiHongSan.md`.
