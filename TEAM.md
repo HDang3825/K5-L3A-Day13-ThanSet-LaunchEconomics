@@ -11,7 +11,7 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        | Người viết code (nửa đầu) |
+|   1 | Võ Lê Hải Đăng | 2A202603577 | 26ai.dangvlh@vinuni.edu.vn | HDang3825 | Người viết code (nửa đầu) |
 |   2 | Lưu Đăng Tuấn | 2A202603454 | 26ai.tuanld@vinuni.edu.vn | kegacua | Người kiểm số (nửa đầu) / Người viết code (nửa sau) |
 |   3 |        |      |       |        | Người gắn nhãn 1 |
 |   4 |        |      |       |        | Người gắn nhãn 2, kiêm giữ hồ sơ |
@@ -37,19 +37,28 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## HoVaTen-MSSV
+## VoLeHaiDang-2A202603577
 
 ### Phần việc phụ trách
 
--
+- Lập trình mô hình kinh tế và phân tích độ nhạy trong `src/lab13.py` (CP1 và CP2).
+- Hoàn thiện bảng dữ liệu chi phí và độ nhạy trong `report/team/bang_chi_phi.md`.
+- Thiết kế đặc tả 8 Telemetry Events có `trace_id` và phân tích định lượng 3 rủi ro kinh tế trong `report/team/chi_so.md` (CP5).
+- Đồng hoàn thiện Hồ sơ Launch v0 (`report/team/ho_so_launch_v0.md`).
 
 ### Đóng góp cụ thể
 
--
+- Lập trình 3 hàm A1 kinh tế chạy lại, vượt qua 100% ba phép thử biết trước (1,20 · 1,25 · 1,25).
+- Xây dựng hàm `mo_hinh` A2 tính toán chi phí mỗi việc thành công (4.472 đ [simulated], gấp 16,3 lần hóa đơn token + tool), phát hiện chi phí nhân viên chiếm 92,5% tổng chi phí.
+- Phân tích chi phí 4 loại yêu cầu (A3), chỉ ra loại `quoc_te` không đáng chạy (22.515 đ, thành công chỉ 27,3%) và tỉ lệ thành công giảm nhanh theo lượt chạy.
+- Tính chi phí cố định 40tr/tháng cho phạm vi `noi_dia + hang_nang` (A4): 4.599 đ (0,38× so với 12.000 đ).
+- Mô phỏng 9 kịch bản độ nhạy (B1), kịch bản cặp (B2), phân tích tối ưu toàn cục của giới hạn 2 lần chạy (B3: 6.901.220 đ) và rủi ro chi phí khi xem lại 100% (B4: vọt lên 1,04× baseline).
+- Xây dựng đặc tả 8 telemetry events có `trace_id` và 3 rủi ro kinh tế trong `chi_so.md`; hoàn thiện 7 mục và 3 điều kiện duyệt Go có điều kiện trong `ho_so_launch_v0.md`.
 
 ### Bằng chứng
 
--
+- Nhánh `dang`: commits trên `src/lab13.py`, `report/team/bang_chi_phi.md`, `report/team/chi_so.md`, `report/team/ho_so_launch_v0.md`.
+- Báo cáo cá nhân: `report/team/2A202603577_VoLeHaiDang.md`.
 
 ## LuuDangTuan-2A202603454
 
