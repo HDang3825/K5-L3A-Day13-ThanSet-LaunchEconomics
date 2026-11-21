@@ -37,5 +37,4 @@
 ## 6. Tự đánh giá
 
 - Đã làm: bộ nhãn người 2 (đồng thuận 85%), rà soát và kiểm số hồ sơ, gộp nhánh git, báo cáo cá nhân.
-- Chưa xong tại thời điểm viết: phiếu chấm nhóm bạn và `group_report.md`.
-- Cần cải thiện: phối hợp sớm hơn với người điền hồ sơ để không trùng việc (mục 1–7 bị điền hai lần). [San chỉnh lại theo cảm nhận của bản thân].
+- Cần cải thiện: phối hợp sớm hơn với người điền hồ sơ để không trùng việc (mục 1–7 bị điền hai lần). 
