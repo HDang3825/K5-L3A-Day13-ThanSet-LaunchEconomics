@@ -23,10 +23,11 @@
 #   Hiện tại: 4,25% toàn mẫu (51/1.200) và 3,97% trong phạm vi noi_dia + hang_nang (39/982). Ngưỡng an toàn khuyến nghị: nhóm trợ lý cao hơn đối chứng >= 2 điểm phần trăm hoặc vượt trần tuyệt đối 6% (không đặt 3% vì sẽ dừng ngay tuần đầu).
 
 pilot:
-  owner: "?"                      # một người có tên vai trò, không ghi "cả đội"
+  owner: "Giám đốc vận hành LogiX-VN" # một người có tên vai trò, không ghi "cả đội"
   scope: "?"                      # loại yêu cầu nào, depot nào; dựa vào kết quả A3
   assignment:
     unit: "staff"                 # request | staff | depot
+
     control_share: 0.5
     randomized: true
   rollout: [0.10, 0.25, 0.50]     # mỗi bước một tuần
@@ -40,14 +41,14 @@ pilot:
     design_effect: 6.96           # 1 + (299 - 1) * 0,02
     clusters_per_arm: 20          # 20 nhân viên mỗi nhóm
   identifiability:
-    concurrent_control: "?"
-    spillover_risk: "?"
-    predeclared: "?"
+    concurrent_control: "Có: nhóm đối chứng và nhóm can thiệp chạy cùng tuần, cùng depot"
+    spillover_risk: "Có rủi ro chia sẻ câu trả lời trong depot; giảm bằng phân quyền theo tài khoản và log lượt mở trợ lý theo staff_id"
+    predeclared: "Có: chỉ số chính, ngưỡng, luật dừng và ngày quyết định được chốt trước khi chạy pilot"
   stop_rules:
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
+    - "NẾU tỉ lệ mo_lai_trong_7_ngay của nhóm trợ lý cao hơn đối chứng >= ? điểm hoặc vượt ?% (hoặc có >= 1 ca hoàn trùng) TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút KHÔNG THÌ không được sang bước rollout tiếp"
+    - "NẾU chi phí mỗi việc thành công > ? đ TRONG 2 tuần liên tiếp THÌ PM trợ lý hoàn phí thu hẹp phạm vi và giới hạn số lần chạy KHÔNG THÌ không được mở rộng bước rollout"
+    - "NẾU tỉ lệ bỏ qua gợi ý (sua + bo) > ?% TRONG 1 tuần THÌ Trưởng nhóm CSKH phỏng vấn 5 nhân viên trong 3 ngày KHÔNG THÌ không được chuyển bước rollout"
   interim_looks: "chỉ kiểm tra chỉ số an toàn"
-  rollback: "?"                   # ai bấm, mất bao lâu, khách được phục vụ bằng gì
-  decision_date: "?"
-  simulated_inputs: ["?"]         # liệt kê mọi con số giả lập đã dùng
+  rollback: "Giám đốc vận hành bấm cờ tắt, hiệu lực 30 phút; khách được phục vụ bằng luồng nhân viên tự làm"
+  decision_date: "2026-12-19"     # dự kiến sau 3-4 tuần từ khi mở pilot (chỉnh lại theo ngày chạy thực tế)
+  simulated_inputs: ["?"]         # liệt kê mọi con số giả lập đã dùng (lấy từ CP1, CP2)
