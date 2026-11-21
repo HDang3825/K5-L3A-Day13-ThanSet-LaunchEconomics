@@ -3,40 +3,42 @@
 # Kiểm tra đọc được: python -c "import yaml; yaml.safe_load(open('../report/team/pilot_plan.yaml'))"
 #
 # D1 · Cỡ mẫu (baseline 0,70; mục tiêu +5 điểm; alpha 0,05; power 0,8; ICC 0,02)
-#   a) Chia theo yêu cầu:
-#   b) Theo nhân viên, m = 75:
-#   c) 20 nhân viên mỗi nhóm:
-#   d) 6 depot mỗi nhóm:
-#   e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm:
+#   a) Chia theo yêu cầu: 1.251 yêu cầu mỗi nhóm (statsmodels: 1.250)
+#   b) Theo nhân viên, m = 75: DE = 2,48; cần 3.103 yêu cầu/nhóm -> 42 NV/nhóm (tổng 84 > 40 NV hiện có -> không đủ người)
+#   c) 20 nhân viên mỗi nhóm: giới hạn n_hiệu_dụng < c/ICC = 20/0,02 = 1.000 < 1.251 -> không đạt mức chênh 5 điểm
+#   d) 6 depot mỗi nhóm: giới hạn n_hiệu_dụng < 6/0,02 = 300 (và dưới 20 cụm/nhóm) -> loại
+#   e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm: cần m >= 299 yêu cầu/nhân viên (DE = 6,96; n_hiệu_dụng = 859,2)
 #
 # D2 · Năm câu kiểm tra "tách được tác động" với cách chia đã chọn (mỗi câu một dòng):
-#   1. Đối chứng chạy cùng thời gian:
-#   2. Chia ngẫu nhiên hay do người chọn:
-#   3. Ảnh hưởng gián tiếp và cách giảm:
-#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước:
-#   5. Ít nhất 20 cụm mỗi nhóm:
+#   1. Đối chứng chạy cùng thời gian: Có, 20 nhân viên đối chứng làm cùng tuần, cùng depot với 20 nhân viên nhóm trợ lý.
+#   2. Chia ngẫu nhiên hay do người chọn: Chia ngẫu nhiên bằng code có seed ghi trước, phân tầng theo depot.
+#   3. Ảnh hưởng gián tiếp và cách giảm: Có rủi ro chia sẻ câu trả lời trong cùng depot; giảm bằng phân quyền tài khoản và log staff_id.
+#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước: Có, chốt toàn bộ trong pilot_plan.yaml trước ngày bắt đầu pilot.
+#   5. Ít nhất 20 cụm mỗi nhóm: Có, đúng 20 nhân viên mỗi nhóm.
 #
 # Đánh đổi đã chấp nhận (nếu cách chia chưa đạt cả hai điều kiện):
+#   Chọn chia theo nhân viên (20 + 20) để tách được tác động và đủ 20 cụm/nhóm, chấp nhận nâng MDE từ 5 điểm lên 6 điểm (m >= 299 yc/NV). Nếu tác động thật chỉ +5 điểm, power thực tế giảm còn 0,64 (với n_hiệu_dụng = 859).
 #
 # Tỉ lệ mo_lai_trong_7_ngay hiện tại và ngưỡng an toàn đã chọn:
+#   Hiện tại: 4,25% toàn mẫu (51/1.200) và 3,97% trong phạm vi noi_dia + hang_nang (39/982). Ngưỡng an toàn khuyến nghị: nhóm trợ lý cao hơn đối chứng >= 2 điểm phần trăm hoặc vượt trần tuyệt đối 6% (không đặt 3% vì sẽ dừng ngay tuần đầu).
 
 pilot:
   owner: "?"                      # một người có tên vai trò, không ghi "cả đội"
   scope: "?"                      # loại yêu cầu nào, depot nào; dựa vào kết quả A3
   assignment:
-    unit: "?"                     # request | staff | depot
+    unit: "staff"                 # request | staff | depot
     control_share: 0.5
     randomized: true
   rollout: [0.10, 0.25, 0.50]     # mỗi bước một tuần
   primary_metric:
     name: dong_trong_24h_khong_mo_lai_7_ngay
     baseline: 0.70
-    mde: 0.05
+    mde: 0.06                     # đánh đổi đã chấp nhận (từ 0,05 lên 0,06; power ở 0,05 là 0,64)
     alpha: 0.05
     power: 0.80
-    n_per_arm: "?"
-    design_effect: "?"            # 1 nếu chia theo yêu cầu
-    clusters_per_arm: "?"         # để trống nếu chia theo yêu cầu
+    n_per_arm: 859
+    design_effect: 6.96           # 1 + (299 - 1) * 0,02
+    clusters_per_arm: 20          # 20 nhân viên mỗi nhóm
   identifiability:
     concurrent_control: "?"
     spillover_risk: "?"

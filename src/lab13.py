@@ -4,7 +4,10 @@ Không cần khoá API. Điền các chỗ ghi VIẾT Ở ĐÂY (đánh dấu TO
 Bản gốc chưa sửa nằm ở lab13_starter.py.
 """
 import math
+from statistics import NormalDist
 import pandas as pd
+from statsmodels.stats.proportion import proportion_effectsize
+from statsmodels.stats.power import NormalIndPower
 
 # Bảng giá GIẢ ĐỊNH của lab (không phải giá thật của nhà cung cấp nào)
 GIA_VAO = 26        # đồng cho 1.000 token đầu vào
@@ -77,6 +80,56 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
         cps=tong / thanh_cong if thanh_cong > 0 else 0,
         hoa_don_moi_yc=(tien_token.sum() + tien_tool.sum()) / len(reqs) if len(reqs) > 0 else 0,
     )
+
+
+# ---------- Nhiệm vụ D · Cỡ mẫu và thiết kế pilot (CP4) ----------
+def co_mau_hai_ti_le(p1, p2, alpha=0.05, power=0.80):
+    """Cỡ mẫu mỗi nhóm khi so hai tỉ lệ (công thức chuẩn z)."""
+    za = NormalDist().inv_cdf(1 - alpha / 2)
+    zb = NormalDist().inv_cdf(power)
+    p_bar = (p1 + p2) / 2
+    n = (
+        za * math.sqrt(2 * p_bar * (1 - p_bar))
+        + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))
+    ) ** 2 / (p2 - p1) ** 2
+    return math.ceil(n)
+
+
+def chay_nhiem_vu_d(reqs, p1=0.70, mde_goc=0.05, mde_moi=0.06, alpha=0.05, power=0.80, icc=0.02):
+    """Tính 5 câu D1, power đánh đổi khi nâng MDE lên 6 điểm, và tỉ lệ mở lại 7 ngày hiện tại."""
+    print('\n=== D1 · Cỡ mẫu theo ba cách chia (CP4) ===')
+    n_req_5 = co_mau_hai_ti_le(p1, p1 + mde_goc, alpha=alpha, power=power)
+    es_5 = proportion_effectsize(p1 + mde_goc, p1)
+    n_sm_5 = math.ceil(NormalIndPower().solve_power(effect_size=es_5, alpha=alpha, power=power, ratio=1.0))
+
+    m_b = 75
+    de_b = 1 + (m_b - 1) * icc
+    n_b = math.ceil(n_req_5 * de_b)
+    nv_moi_nhom = math.ceil(n_b / m_b)
+
+    c_nv = 20
+    tran_nv = c_nv / icc
+    c_depot = 6
+    tran_depot = c_depot / icc
+
+    n_req_6 = co_mau_hai_ti_le(p1, p1 + mde_moi, alpha=alpha, power=power)
+    m_min = math.ceil(((1 - icc) * n_req_6) / (c_nv - icc * n_req_6))
+    de_e = 1 + (m_min - 1) * icc
+    n_eff_e = (c_nv * m_min) / de_e
+    power_5 = NormalIndPower().power(effect_size=es_5, nobs1=n_req_6, alpha=alpha, ratio=1.0)
+
+    scope = reqs[reqs['loai'].isin(['noi_dia', 'hang_nang'])]
+    reopen_all = reqs['mo_lai_trong_7_ngay'].mean()
+    reopen_scope = scope['mo_lai_trong_7_ngay'].mean()
+
+    print(f"a) Chia theo yêu cầu (+5 điểm):         {n_req_5:,} yêu cầu/nhóm (statsmodels: {n_sm_5:,})")
+    print(f"b) Theo nhân viên (m=75):               DE={de_b:.2f}, n={n_b:,}/nhóm -> {nv_moi_nhom} NV/nhóm (tổng {2*nv_moi_nhom} > 40: không đủ người)")
+    print(f"c) 20 nhân viên/nhóm:                   n_hiệu_dụng < {tran_nv:,.0f} < {n_req_5:,} (không đạt +5 điểm)")
+    print(f"d) 6 depot/nhóm:                        n_hiệu_dụng < {tran_depot:,.0f} (và 6 < 20 cụm/nhóm: loại)")
+    print(f"e) Mức chênh 6 điểm (n={n_req_6:,}/nhóm):     m >= {m_min} yc/NV (DE={de_e:.2f}, n_hiệu_dụng={n_eff_e:.1f})")
+    print(f"Đánh đổi: với n={n_req_6:,}, power thực tế khi tác động thật là +5 điểm = {power_5:.2f}")
+    print(f"Tỉ lệ mo_lai_trong_7_ngay: toàn mẫu = {reopen_all*100:.2f}% ({int(reqs['mo_lai_trong_7_ngay'].sum())}/{len(reqs)}), "
+          f"phạm vi noi_dia + hang_nang = {reopen_scope*100:.2f}% ({int(scope['mo_lai_trong_7_ngay'].sum())}/{len(scope)})")
 
 
 if __name__ == '__main__':
@@ -183,15 +236,23 @@ if __name__ == '__main__':
     tien_xem_lai_100 = so_yc_xem_lai * 5 * LUONG_PHUT
     ca_lam_lai = (pv_reqs['ket_qua'] == 'lam_lai').sum()
     tien_lam_lai_9m = ca_lam_lai * 9 * LUONG_PHUT
+    phut_lam_lai_tb_toan_mau = reqs.loc[reqs['ket_qua'] == 'lam_lai', 'phut_lam_lai_simulated'].mean()
+    tien_lam_lai_toan_mau = ca_lam_lai * phut_lam_lai_tb_toan_mau * LUONG_PHUT
     phut_lam_lai_tb = pv_reqs.loc[pv_reqs['ket_qua'] == 'lam_lai', 'phut_lam_lai_simulated'].mean()
     tien_lam_lai_thuc = ca_lam_lai * phut_lam_lai_tb * LUONG_PHUT
     tien_token_tool = (pv_runs['tokens_in'] / 1000 * GIA_VAO + pv_runs['tokens_out'] / 1000 * GIA_RA + pv_runs['tool_calls'] * GIA_TOOL).sum()
     tc_pv = (pv_reqs['ket_qua'] == 'thanh_cong').sum()
     tong_9m = tien_token_tool + tien_xem_lai_100 + tien_lam_lai_9m
     cps_9m = tong_9m / tc_pv
+    tong_toan_mau = tien_token_tool + tien_xem_lai_100 + tien_lam_lai_toan_mau
+    cps_toan_mau = tong_toan_mau / tc_pv
     tong_thuc = tien_token_tool + tien_xem_lai_100 + tien_lam_lai_thuc
     cps_thuc = tong_thuc / tc_pv
-    print(f"Xem lại 100% (9 phút làm lại): Tổng = {tong_9m:,.0f} đ | CPS = {cps_9m:,.0f} đ [sim] ({cps_9m/BASELINE:.2f}x)")
-    print(f"Xem lại 100% ({phut_lam_lai_tb:.1f} phút làm lại thực tế): Tổng = {tong_thuc:,.0f} đ | CPS = {cps_thuc:,.0f} đ [sim] ({cps_thuc/BASELINE:.2f}x)")
+    print(f"Xem lại 100% (9 phút làm lại theo đề): Tổng = {tong_9m:,.0f} đ | CPS = {cps_9m:,.0f} đ [simulated] ({cps_9m/BASELINE:.2f}x)")
+    print(f"Xem lại 100% ({phut_lam_lai_tb_toan_mau:.1f} phút TB toàn mẫu): Tổng = {tong_toan_mau:,.0f} đ | CPS = {cps_toan_mau:,.0f} đ [simulated] ({cps_toan_mau/BASELINE:.2f}x)")
+    print(f"Xem lại 100% ({phut_lam_lai_tb:.2f} phút TB phạm vi): Tổng = {tong_thuc:,.0f} đ | CPS = {cps_thuc:,.0f} đ [simulated] ({cps_thuc/BASELINE:.2f}x)")
+
+    # CP4 · Nhiệm vụ D: cỡ mẫu, hệ số thiết kế, tỉ lệ mở lại 7 ngày
+    chay_nhiem_vu_d(reqs)
 
 
